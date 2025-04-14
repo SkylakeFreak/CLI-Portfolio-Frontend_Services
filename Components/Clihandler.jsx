@@ -44,6 +44,30 @@ function Clihandler() {
     useEffect(() => {
         setuseridentification(navigator.userAgent)
       }, []);
+    
+
+      const handleKeyDown = (e) => {
+
+        if (e.key === 'Enter') {
+            setMasterhistory(prev => {
+                const temp = [...prev]; // copy to avoid mutation
+                const lastelement = temp.pop();
+                const lastIndex = masterhistory.findIndex(item => !item.isdone);
+          if (lastIndex !== -1 && inputRefs.current[lastIndex]) {
+            inputRefs.current[lastIndex].focus();
+          }
+            
+                if (!lastelement?.isdone) {
+                  const obj = { input: "1", response: "2", isdone: true };
+                  return [...temp, obj]; // re-add the popped + new
+                } else {
+                  console.log("Waiting for the Input");
+                  return prev; // no change
+                }
+              });
+
+        }
+      };
 
 
      
@@ -88,7 +112,7 @@ function Clihandler() {
             {item.isdone&& <p><span className='text-purple-600'>Inp $-{'>'}</span>{item.input}</p>}
             {!(item.isdone)&&<div className='flex flex-row'>
                 <span className='text-purple-600'>Inp $-{'>'}&nbsp;</span>
-                <input className='outline-none caret-purple-600' ref={(el) => (inputRefs.current[index] = el)} type="text"/>
+                <input onKeyDown={handleKeyDown} className='outline-none caret-purple-600' ref={(el) => (inputRefs.current[index] = el)} type="text"/>
                 </div>}
             </div>
 
