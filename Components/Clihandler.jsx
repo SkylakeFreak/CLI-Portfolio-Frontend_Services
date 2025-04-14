@@ -12,6 +12,7 @@ function Clihandler() {
     const [masterhistory, setMasterhistory] = useState([
         { input: "IS IT", response: "YES", isdone: true },
       ]);
+    const masterdata=[{calltype:"apiad",link:"https://apiad.vercel.app",specification:"",title:"Passwordless Active Directory"}]
 
     useEffect(() => {
         setMasterhistory(prev => {
@@ -58,6 +59,10 @@ function Clihandler() {
           }
             
                 if (!lastelement?.isdone) {
+
+
+                    //perform operation
+                    //and then store the values inside the objects
                   const obj = { input: "1", response: "2", isdone: true };
                   return [...temp, obj]; // re-add the popped + new
                 } else {
@@ -76,12 +81,19 @@ function Clihandler() {
   return (
     <div className='bg-black flex text-white flex-col p-5'>
         
-        <p className='text-white font-mono'>User @ <span className='text-green-600'>~   {useridentification}</span></p>
-        <div className='flex flex-row mt-10 gap-5 items-center justify-center'>
-        <Image className='h-20 w-20' src={img1} alt="CLi Logo"/>
-        <p>CLI Portfolio</p>
-        </div>
-        <div className='outline-1 mt-10 p-1 rounded-sm outline-white'>
+        <pre className="text-gray-500 font-mono text-xs leading-tight whitespace-pre">
+{`
+███████╗██╗   ██╗███████╗
+██╔════╝██║   ██║██╔════╝
+███████╗██║   ██║█████╗      
+╚════██║██║   ██║██╔══╝     
+███████║╚██████╔╝███████╗   ██║   ██║   ██║   ██║  
+╚══════╝ ╚═════╝ ╚══════╝   ╚═╝   ╚═╝   ╚═╝   ╚═╝ 
+`}
+</pre>
+
+
+        <div className='outline-1 mt-10 p-1  outline-white'>
 
             <div className='flex font-mono flex-col items-left ml-10 gap-3 mt-3 mb-3  text-gray-400'>
                 <p>Workspace</p>
@@ -94,7 +106,7 @@ function Clihandler() {
 
 
         </div>
-        <div className='outline-1 mt-10 p-1 rounded-sm outline-white'>
+        <div className='outline-1 mt-10 p-1 outline-white'>
 
 <div className='flex font-mono flex-col items-left ml-10 gap-3 mt-3 mb-3  text-gray-400'>
     <p>Database</p>
@@ -118,6 +130,13 @@ function Clihandler() {
 
             <div>
             {item.isdone&&<p><span className='text-red-600'>Resp $-{'>'} </span>{item.response}</p>}
+            <iframe style={{
+                width: '1500px',       // make iframe content bigger
+                height: '1000px',
+                transform: 'scale(0.3)', // zoom out
+                transformOrigin: 'top left',
+                border: 'none',
+                }} src="https://apiad.vercel.app"></iframe>
             
 
             </div>
