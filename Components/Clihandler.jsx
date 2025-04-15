@@ -5,13 +5,14 @@ import img1 from "../Assets/gitlab.png"
 import { useEffect,useState,useRef } from 'react';
 function Clihandler() {
   const [currentstring,setcurrentstring]=useState("");
+
     const inputRefs = useRef([]);
     const [useridentification,setuseridentification]=useState("...")
     const [dots, setdots] = useState(0);
     const array=["|","/","—","\\"]
 
     const [masterhistory, setMasterhistory] = useState([
-        { input: "IS IT", response: "YES", isdone: true },
+        {  },
       ]);
     const masterdata=[{calltype:"apiad",link:"https://apiad.vercel.app",specification:"",title:"Passwordless Active Directory"},
       {calltype:"Newag",link:"https://news-aggregators.vercel.app/",specification:"",title:"News Aggregator Website"},
@@ -64,11 +65,21 @@ function Clihandler() {
           }
             
                 if (!lastelement?.isdone) {
+                  var setresponse=""
+                  if (currentstring==="apiad"){
+                    for(const current of masterdata)
+                      if (current.calltype==currentstring){
+                        setresponse=current.link
+
+                      }
+                   
+
+                  }
 
 
                     //perform operation
                     //and then store the values inside the objects
-                  const obj = { input: "1", response: "2", isdone: true };
+                  const obj = { input: currentstring, response: setresponse, isdone: true };
                   return [...temp, obj]; // re-add the popped + new
                 } else {
                   console.log("Waiting for the Input");
@@ -130,7 +141,12 @@ function Clihandler() {
             {item.isdone&& <p><span className='text-purple-600'>Inp $-{'>'}</span>{item.input}</p>}
             {!(item.isdone)&&<div className='flex flex-row'>
                 <span className='text-purple-600'>Inp $-{'>'}&nbsp;</span>
-                <input onKeyDown={handleKeyDown} className='outline-none caret-purple-600' ref={(el) => (inputRefs.current[index] = el)} type="text"/>
+                <input onKeyDown={(e)=>{
+                  handleKeyDown(e);
+                  setcurrentstring(e.target.value)
+
+                  console.log(currentstring)
+                }}   className='outline-none caret-purple-600' ref={(el) => (inputRefs.current[index] = el)} type="text"/>
                 </div>}
             </div>
 
