@@ -4,6 +4,7 @@ import Image from 'next/image';
 import img1 from "../Assets/gitlab.png"
 import { useEffect,useState,useRef } from 'react';
 function Clihandler() {
+  const [currentstring,setcurrentstring]=useState("");
     const inputRefs = useRef([]);
     const [useridentification,setuseridentification]=useState("...")
     const [dots, setdots] = useState(0);
@@ -12,7 +13,11 @@ function Clihandler() {
     const [masterhistory, setMasterhistory] = useState([
         { input: "IS IT", response: "YES", isdone: true },
       ]);
-    const masterdata=[{calltype:"apiad",link:"https://apiad.vercel.app",specification:"",title:"Passwordless Active Directory"}]
+    const masterdata=[{calltype:"apiad",link:"https://apiad.vercel.app",specification:"",title:"Passwordless Active Directory"},
+      {calltype:"Newag",link:"https://news-aggregators.vercel.app/",specification:"",title:"News Aggregator Website"},
+      {calltype:"Maersk",link:"https://maersk-nine.vercel.app/",specification:"",title:"Maersk Supply Chain Frontend Clone"},
+      {calltype:"DFSBFS",link:"https://pathfinder-ten-phi.vercel.app/",specification:"",title:"DFS+BFS Algorithm in React Visualation"}
+    ]
 
     useEffect(() => {
         setMasterhistory(prev => {
@@ -100,7 +105,7 @@ function Clihandler() {
                 <p>Browser</p>
                 <p>Version</p>
                 <p>Engine</p>
-                <p>State <span className='text-green-600'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Running {array[dots]}</span></p>
+                <p>State <span className='text-green-600'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Running {array[dots]}</span></p>
 
             </div>
 
@@ -109,8 +114,9 @@ function Clihandler() {
         <div className='outline-1 mt-10 p-1 outline-white'>
 
 <div className='flex font-mono flex-col items-left ml-10 gap-3 mt-3 mb-3  text-gray-400'>
-    <p>Database</p>
-    <p>Server</p>
+    <p>Database&nbsp;&nbsp;&nbsp;&nbsp; <span className='text-red-600'>Not developed</span></p>
+    <p>Server&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span className='text-red-600'>Not developed</span></p>
+    <p>Version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span className='text-red-600'>1.0.0</span></p>
 
 </div>
 </div>
