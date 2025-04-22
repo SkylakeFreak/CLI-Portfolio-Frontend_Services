@@ -4,6 +4,7 @@ import Image from "next/image";
 import img1 from "../Assets/gitlab.png";
 import { useEffect, useState, useRef } from "react";
 function Clihandler() {
+  const fixedinputs = ["apiad", "newag", "maersk", "dfsbfs"];
   const [currentstring, setcurrentstring] = useState("");
 
   const inputRefs = useRef([]);
@@ -20,19 +21,19 @@ function Clihandler() {
       title: "Passwordless Active Directory",
     },
     {
-      calltype: "Newag",
+      calltype: "newag",
       link: "https://news-aggregators.vercel.app/",
       specification: "",
       title: "News Aggregator Website",
     },
     {
-      calltype: "Maersk",
+      calltype: "maersk",
       link: "https://maersk-nine.vercel.app/",
       specification: "",
       title: "Maersk Supply Chain Frontend Clone",
     },
     {
-      calltype: "DFSBFS",
+      calltype: "dfsbfs",
       link: "https://pathfinder-ten-phi.vercel.app/",
       specification: "",
       title: "DFS+BFS Algorithm in React Visualation",
@@ -59,6 +60,7 @@ function Clihandler() {
   }, [masterhistory]);
 
   useEffect(() => {
+    console.log(masterhistory.response);
     const interval = setInterval(() => {
       setdots((prev) => (prev < 3 ? prev + 1 : 0));
     }, 120);
@@ -82,16 +84,21 @@ function Clihandler() {
 
         if (!lastelement?.isdone) {
           var setresponse = "";
-          var inputdata=""
-          if (["apiad","Newag","Maersk","DFSBFS"].includes(currentstring)) {
+          var inputdata = "";
+          if (fixedinputs.includes(currentstring)) {
             for (const current of masterdata)
               if (current.calltype == currentstring) {
                 setresponse = current.link;
-                inputdata=current.calltype;
+                inputdata = current.calltype;
               }
-          }
-          else{
-            setresponse="Validation Fail"
+          } else if (currentstring === "cls") {
+            setMasterhistory([{}]);
+            setcurrentstring("hello");
+          } else if (currentstring === "ls prj") {
+            setresponse = fixedinputs;
+            inputdata = currentstring;
+          } else {
+            setresponse = "Validation Fail";
           }
 
           //perform operation
@@ -172,14 +179,10 @@ function Clihandler() {
                 <div className="flex flex-row">
                   <span className="text-purple-600">Inp $-{">"}&nbsp;</span>
                   <input
-                  onChange={(e)=>{
-                    setcurrentstring(e.target.value)
-
-                  }}
-                    onKeyDown={
-                      handleKeyDown}
-
-                    
+                    onChange={(e) => {
+                      setcurrentstring(e.target.value);
+                    }}
+                    onKeyDown={handleKeyDown}
                     className="outline-none caret-purple-600"
                     ref={(el) => (inputRefs.current[index] = el)}
                     type="text"
@@ -188,31 +191,55 @@ function Clihandler() {
               )}
             </div>
 
-          
-              {item.isdone && (
-                <p>
-                  <span className="text-red-600">Resp $-{">"} </span>
-                  {item.response}
-                </p>
-              )}
-             {item.response !== "" && (
-  <div style={{ width: "300px", height: "200px", overflow: "hidden" }}>
-    <iframe
-    className="bg-white"
-      style={{
-        width: "1500px", // iframe content size
-        height: "1000px",
-        transform: "scale(0.2)", // zoom out
-        transformOrigin: "top left",
-        border: "none",
-      }}
-      src={item.response}
-    ></iframe>
-  </div>
-)}
+            {item.isdone && !(typeof(item.response)=="object") && (
+              <p>
+                <span className="text-red-600">Resp $-{">"} </span>
+                {item.response}
+              </p>
+            )}
 
-            </div>
-         
+            {item.isdone && (typeof item.response=="object")&& (
+                          <p>
+                            <div className="flex">
+                            <span className="text-red-600">Resp $-{">"} </span>
+                            <p className="text-amber-500">&nbsp;Projects</p>
+
+                            </div>
+                           
+                            {item.response.map((index,value)=>(
+                              <div className="ml-1" key={value}>
+                               <span className="text-amber-500">--</span>&nbsp;
+                               <span className="italic text-amber-500">{index}</span> 
+                              </div>
+                            ))}
+                            <p className="text-blue-500">Type Above Commands to Get in Detailed</p>
+                          </p>
+                        )}
+
+            {item.input !== "ls prj" &&
+              item.response !== "" &&
+              item.response != undefined && (
+                <div
+                  style={{
+                    width: "300px",
+                    height: "200px",
+                    overflow: "hidden",
+                  }}
+                >
+                  <iframe
+                    className="bg-white"
+                    style={{
+                      width: "1500px", // iframe content size
+                      height: "1000px",
+                      transform: "scale(0.2)", // zoom out
+                      transformOrigin: "top left",
+                      border: "none",
+                    }}
+                    src={item.response}
+                  ></iframe>
+                </div>
+              )}
+          </div>
         ))}
       </div>
     </div>
