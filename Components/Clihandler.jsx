@@ -228,8 +228,8 @@ function Clihandler() {
                           </div>
                         )}
 
-                        <span className="text-lime-600">{item.heading}</span>
-                        <pre className="text-lime-600">{item.specification}</pre>                            
+                        <span className="text-lime-600 mt-1 mb-1">{item.heading}</span>
+                        <pre className="text-lime-600 whitespace-pre-wrap break-words overflow-x-auto">{item.specification}</pre>                            
 
             {item.input !== "ls prj" &&
               item.response !== "" &&
