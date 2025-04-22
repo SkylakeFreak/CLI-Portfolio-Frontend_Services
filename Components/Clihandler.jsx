@@ -173,8 +173,9 @@ function Clihandler() {
       </div>
 
       <div className="flex w-full flex-col">
+        <p className="mt-2 text-blue-300">Tip: Type <span className="text-amber-300 font-mono">ls prj</span> to explore my projects 🔍</p>
         {masterhistory.map((item, index) => (
-          <div className="flex flex-col" key={index}>
+          <div className="flex flex-col mt-2" key={index}>
             <p className="text-white font-mono">
               User @{" "}
               <span className="text-green-600">~ {useridentification}</span>
@@ -191,7 +192,7 @@ function Clihandler() {
                   <span className="text-purple-600">Inp $-{">"}&nbsp;</span>
                   <input
                     onChange={(e) => {
-                      setcurrentstring(e.target.value);
+                      setcurrentstring(e.target.value.toLowerCase());
                     }}
                     onKeyDown={handleKeyDown}
                     className="outline-none caret-purple-600"
