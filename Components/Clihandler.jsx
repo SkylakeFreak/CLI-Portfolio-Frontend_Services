@@ -17,9 +17,14 @@ function Clihandler() {
     {
       calltype: "apiad",
       link: "https://apiad.vercel.app",
-      specification: "",
+      specification: `specification: 'Passwordless Auth System 🔐
+   - Web + Android-based login flow
+   - QR Code pairing, fingerprint verification
+   - Secure device fingerprinting (IMEI, network hash, Keystore integration)
+   - Built from scratch, aimed at redefining web auth'`,
       title: "Passwordless Active Directory",
     },
+
     {
       calltype: "newag",
       link: "https://news-aggregators.vercel.app/",
@@ -85,11 +90,15 @@ function Clihandler() {
         if (!lastelement?.isdone) {
           var setresponse = "";
           var inputdata = "";
+          var heading="";
+          var specification=""
           if (fixedinputs.includes(currentstring)) {
             for (const current of masterdata)
               if (current.calltype == currentstring) {
                 setresponse = current.link;
                 inputdata = current.calltype;
+                specification=current.specification;
+                heading=current.title
               }
           } else if (currentstring === "cls") {
             setMasterhistory([{}]);
@@ -106,6 +115,8 @@ function Clihandler() {
           const obj = {
             input: inputdata,
             response: setresponse,
+            heading: heading,
+            specification:specification,
             isdone: true,
           };
           return [...temp, obj]; // re-add the popped + new
@@ -195,11 +206,12 @@ function Clihandler() {
               <p>
                 <span className="text-red-600">Resp $-{">"} </span>
                 {item.response}
+                
               </p>
             )}
 
             {item.isdone && (typeof item.response=="object")&& (
-                          <p>
+                          <div>
                             <div className="flex">
                             <span className="text-red-600">Resp $-{">"} </span>
                             <p className="text-amber-500">&nbsp;Projects</p>
@@ -213,8 +225,11 @@ function Clihandler() {
                               </div>
                             ))}
                             <p className="text-blue-500">Type Above Commands to Get in Detailed</p>
-                          </p>
+                          </div>
                         )}
+
+                        <span className="text-lime-600">{item.heading}</span>
+                        <pre className="text-lime-600">{item.specification}</pre>                            
 
             {item.input !== "ls prj" &&
               item.response !== "" &&
